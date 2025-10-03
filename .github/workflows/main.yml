@@ -13,7 +13,7 @@ jobs:
     name: Docker Build & Publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Set env.ARTIFACT_VERSION
         run: |
           wget -q https://raw.githubusercontent.com/Bahmni/bahmni-infra-utils/main/setArtifactVersion.sh && chmod +x setArtifactVersion.sh
@@ -29,7 +29,7 @@ jobs:
           username: ${{ secrets.THANKSDOC_USER }}
           password: ${{ secrets.THANKSDOC_TOKEN }}
       - name: Docker Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v2
         with:
           context: .
           platforms: linux/amd64,linux/arm64
