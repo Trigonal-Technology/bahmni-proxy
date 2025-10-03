@@ -47,7 +47,7 @@ RUN mkdir -p /var/log/client-side-logs/ &&\
 	chmod 777 /var/log/client-side-logs/client-side.log &&\
 	ln -s /usr/local/apache2/htdocs/client_side_logging /usr/lib/python3*/site-packages/ 
 
-RUN apt-get update && apt-get install -y apache2-dev \
+RUN apk add --no-cache apache2-dev \
     && python3 -m venv /opt/venv \
     && . /opt/venv/bin/activate \
     && pip install --upgrade pip setuptools wheel \
