@@ -32,11 +32,12 @@ RUN apk add --no-cache --virtual .build-deps \
         libc-dev \
 		apache2-dev \
 		apache2-utils \
-		py-pip \
+		py3-pip \
 		tar \
         python3-dev \
         libffi-dev \
-		tzdata
+		tzdata \
+		make
 
 RUN python3 -m venv /opt/certbot/ &&\
         /opt/certbot/bin/pip install certbot &&\
@@ -47,11 +48,7 @@ RUN mkdir -p /var/log/client-side-logs/ &&\
 	chmod 777 /var/log/client-side-logs/client-side.log &&\
 	ln -s /usr/local/apache2/htdocs/client_side_logging /usr/lib/python3*/site-packages/ 
 
-RUN apk add --no-cache apache2-dev \
-    && python3 -m venv /opt/venv \
-    && . /opt/venv/bin/activate \
-    && pip install --upgrade pip setuptools wheel \
-    && pip install Flask pyyaml==5.4.1 mod_wsgi
-	
+RUN python3 -m pip install Flask PyYAML==6.0.1 mod_wsgi --break-system-packages
+
 # Rename and move mod_wsgi module to apache2 modules
 RUN mv /usr/lib/python*/site-packages/mod_wsgi/server/mod_wsgi-*.so /usr/local/apache2/modules/mod_wsgi.so
